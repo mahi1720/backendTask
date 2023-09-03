@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Result</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #image-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+        }
+        #zoom-box {
+            position: absolute;
+            width: 200px; /* Adjust as needed */
+            height: 200px; /* Adjust as needed */
+            background-color: white;
+            border: 1px solid #ccc;
+            display: none;
+        }
+        #zoomed-image {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Result</h1>
+    <p>{{ message }}</p>
+    <div id="image-container">
+        <img src="{{ uploaded_image_url }}" id="uploaded-image" alt="Uploaded Image">
+        <div id="zoom-box">
+            <img src="{{ uploaded_image_url }}" id="zoomed-image" alt="Zoomed Image">
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $("#uploaded-image").hover(function(e) {
+                $("#zoom-box").show();
+            }, function() {
+                $("#zoom-box").hide();
+            }).mousemove(function(e) {
+                var xOffset = 20; // Adjust the offset as needed
+                var yOffset = 20; // Adjust the offset as needed
+                var x = e.pageX + xOffset;
+                var y = e.pageY + yOffset;
+                $("#zoom-box").css({ top: y + "px", left: x + "px" });
+                $("#zoomed-image").css({
+                    "object-position": -xOffset + "px " + -yOffset + "px"
+                });
+            });
+        });
+    </script>
+</body>
+</html>
